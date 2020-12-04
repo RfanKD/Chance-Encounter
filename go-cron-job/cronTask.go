@@ -8,8 +8,6 @@ import (
 	"log"
 	"net/http"
 	"reflect"
-	"strings"
-	"time"
 
 	"github.com/neo4j/neo4j-go-driver/neo4j"
 )
@@ -79,11 +77,11 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	test(callList)
-	timeDisplayHandler()
+	interateInterfaceVariable(callList)
+
 }
 
-func test(t interface{}) {
+func interateInterfaceVariable(t interface{}) {
 	switch reflect.TypeOf(t).Kind() {
 	case reflect.Slice:
 		s := reflect.ValueOf(t)
@@ -97,7 +95,7 @@ func test(t interface{}) {
 }
 
 func timeDisplayHandler() {
-	fmt.Println(strings.ToLower(time.Now().Format(time.Kitchen)))
+	//fmt.Println(strings.ToLower(time.Now().Format(time.Kitchen)))
 	// configForNeo4j35 := func(conf *neo4j.Config) {}
 }
 
@@ -112,7 +110,7 @@ func sendNumbers(numList []string) {
 		log.Fatalln(err)
 	}
 
-	resp, err := http.Post("", "application/json", bytes.NewBuffer(requestBody))
+	resp, err := http.Post("https://jsonplaceholder.typicode.com/posts", "application/json", bytes.NewBuffer(requestBody))
 	if err != nil {
 		log.Fatalln(err)
 	}
